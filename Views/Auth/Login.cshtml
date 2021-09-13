@@ -1,0 +1,26 @@
+﻿@model Timetracker.Models.LoginModel
+@{
+    ViewData["Title"] = "Вход на сайт";
+}
+
+<h4>@ViewData["Title"]</h4>
+
+<form asp-action="Login" asp-controller="Auth" asp-anti-forgery="true">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div>
+        <div class="form-group">
+            <label asp-for="Login">Введите логин</label><br />
+            <input class="border-light" type="text" asp-for="Login" />
+            <span asp-validation-for="Login" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Password">Введите пароль</label><br />
+            <input class="border-light" asp-for="Password" />
+            <span asp-validation-for="Password" />
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Вход" class="btn-primary" />
+            <a asp-action="Register" asp-controller="Auth" class="button1">Регистрация</a>
+        </div>
+    </div>
+</form>

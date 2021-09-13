@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Страница администратора";
+}
+<h3>Учет времени</h3>
+<form action="/Home/BlockEmployee" method="post">
+    @if (Model.Count > 0)
+    {
+        <table id="tbEmployees" class="table">
+            <thead>
+                <tr><th align="left"></th><th align="left">Ид</th><th align="left">ФИО</th><th align="left">Табельный номер</th><th align="left">Должность</th><th align="left">Роль</th></tr>
+            </thead>
+            <tbody>
+                @foreach (Employee emp in Model)
+                {
+                    string fio = @emp.Surname + " " + @emp.Name + " " + @emp.Patronymic;
+                <tr>
+                    @*<td name="IsBlocked"><input name="employeeId" id=@emp.Id type="checkbox" /></td>*@
+                    <td name="IsBlocked">
+                        @*<input type="submit" value="X" />*@
+                        <input name="employeeId" id=@emp.Id type="checkbox" checked="checked" />
+                        <div id="report_@emp.Id">@Html.ActionLink("X", "BlockEmployee", "Home", new { Id = @emp.Id }, null)</div>
+                    </td>
+                    <td name="Id" align="left"><input value=@emp.Id name="employeeId" /></td>
+                    <td align="left">@fio</td>
+                    <td align="left">@emp.PersonnelNumber</td>
+                    <td align="left">@emp.Position</td>
+                    <td align="left">@emp.RoleId</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div>Сотрудники не найдены</div>
+    }
+    <div class="form-inline">
+        <a id="aAddEmployee" class="btn" asp-controller="Home" asp-action="AddEmployee">Добавить сотрудника</a>
+        @*<a id="aBlockEmployee" class="btn" asp-controller="Home" asp-action="BlockEmployee">Заблокировать сотрудника</a>*@
+    </div>
+    <div class="form-inline">
+        <a id="aWorkStarted" name="aWorkStarted" class="btn" asp-controller="Home" asp-action="WorkStarted">Приступил к работе</a>
+        <a id="aWorkFinished" name="aWorkFinished" class="btn" asp-controller="Home" asp-action="WorkFinished">Завершил работу</a>
+    </div>
+</form>
